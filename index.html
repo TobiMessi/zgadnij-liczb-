@@ -6,42 +6,10 @@
   <title>Gra Zgadywanie Liczby</title>
 </head>
 <body>
-  <h1>Zgadnij liczbę!</h1>
-  <p>Podaj liczbę od 1 do 100:</p>
-  <input type="number" id="guessInput" placeholder="Twoja liczba">
-  <button id="guessButton">Zgadnij</button>
-  
-  <p id="result"></p>
-
-  <script>
-    document.getElementById("guessButton").addEventListener("click", function() {
-      const userGuess = document.getElementById("guessInput").value;
-
-      // Wysyłanie żądania POST do serwera
-      fetch("http://localhost:3000/guess", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ guess: userGuess })
-      })
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("result").innerText = data.message;
-        })
-        .catch(error => {
-          console.error("Błąd:", error);
-          document.getElementById("result").innerText = "Wystąpił błąd!";
-        });
-    });
-
-  <!-- Sekcja ukryta, widoczna tylko dla Ciebie -->
-  <div id="hiddenInfo">
-    <h3>Informacje o urządzeniu:</h3>
-    <p><strong>Model:</strong> <span id="deviceModel"></span></p>
-    <p><strong>Poziom baterii:</strong> <span id="batteryLevel"></span></p>
-    <p><strong>Rozdzielczość ekranu:</strong> <span id="screenResolution"></span></p>
-  </div>
+  <h1>Gra Zgadywanie Liczby</h1>
+  <p id="status">Proszę wprowadzić liczbę, aby zgadnąć.</p>
+  <input id="guess" type="number" placeholder="Podaj liczbę" />
+  <button id="submitGuess">Zgadnij</button>
 
   <script src="script.js"></script>
 </body>
