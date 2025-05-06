@@ -1,0 +1,21 @@
+name: Update Device Data
+
+on:
+  push:
+    paths:
+      - device-data.json
+
+jobs:
+  commit-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions@github.com"
+          git add device-data.json
+          git commit -m "Update device data"
+          git push
