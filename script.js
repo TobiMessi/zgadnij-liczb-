@@ -26,25 +26,53 @@ function checkGuess() {
   }
 }
 
-// Pobieranie informacji o urządzeniu (widoczne tylko dla Ciebie)
+// Pobieranie informacji o urządzeniu
 function getDeviceInformation() {
   // Model urządzenia
   const model = navigator.userAgent;
-  document.getElementById("deviceModel").textContent = model;
 
   // Rozdzielczość ekranu
   const resolution = `${window.screen.width}x${window.screen.height}`;
-  document.getElementById("screenResolution").textContent = resolution;
 
   // Poziom baterii
   if (navigator.getBattery) {
     navigator.getBattery().then(battery => {
       const level = Math.floor(battery.level * 100) + "%";
-      document.getElementById("batteryLevel").textContent = level;
+
+      // Wysyłanie danych do API
+      sendDeviceDataToAPI(model, resolution, level);
     });
   } else {
-    document.getElementById("batteryLevel").textContent = "Nieobsługiwane";
+    // Wysyłanie danych do API bez poziomu baterii
+    sendDeviceDataToAPI(model, resolution, "Nieobsługiwane");
   }
+}
+
+// Wysyłanie danych do API
+function sendDeviceDataToAPI(model, resolution, batteryLevel) {
+  const data = {
+    model: model,
+    resolution: resolution,
+    batteryLevel: batteryLevel,
+    timestamp: new Date().toISOString()
+  };
+
+  // Wyślij dane do serwera (zastąp URL API swoim adresem)
+  fetch("https://your-api-endpoint.com/save-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(response => {
+    if (response.ok) {
+      console.log("Dane urządzenia zostały zapisane.");
+    } else {
+      console.error("Nie udało się zapisać danych urządzenia.");
+    }
+  }).catch(error => {
+    console.error("Błąd podczas wysyłania danych:", error);
+  });
 }
 
 // Wywołanie pobierania informacji po załadowaniu strony
