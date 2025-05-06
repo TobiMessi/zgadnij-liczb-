@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gra w zgadywanie liczby</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Gra Zgadywanie Liczby</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Gra w zgadywanie liczby</h1>
-    <p>Komputer wylosował liczbę od 1 do 100. Zgadnij ją!</p>
-    <input type="number" id="guessInput" placeholder="Wpisz liczbę..." />
-    <button onclick="checkGuess()">Zgadnij</button>
-    <p class="result" id="result"></p>
-    <p class="error" id="error"></p>
-  </div>
+  <h1>Zgadnij liczbę!</h1>
+  <p>Podaj liczbę od 1 do 100:</p>
+  <input type="number" id="guessInput" placeholder="Twoja liczba">
+  <button id="guessButton">Zgadnij</button>
+  
+  <p id="result"></p>
+
+  <script>
+    document.getElementById("guessButton").addEventListener("click", function() {
+      const userGuess = document.getElementById("guessInput").value;
+
+      // Wysyłanie żądania POST do serwera
+      fetch("http://localhost:3000/guess", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ guess: userGuess })
+      })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("result").innerText = data.message;
+        })
+        .catch(error => {
+          console.error("Błąd:", error);
+          document.getElementById("result").innerText = "Wystąpił błąd!";
+        });
+    });
 
   <!-- Sekcja ukryta, widoczna tylko dla Ciebie -->
   <div id="hiddenInfo">
