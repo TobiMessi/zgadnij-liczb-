@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gra w zgadywanie liczby</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gra w zgadywanie liczby</h1>
+    <p>Komputer wylosował liczbę od 1 do 100. Zgadnij ją!</p>
+    <input type="number" id="guessInput" placeholder="Wpisz liczbę..." />
+    <button onclick="checkGuess()">Zgadnij</button>
+    <p class="result" id="result"></p>
+    <p class="error" id="error"></p>
+  </div>
+
+  <!-- Sekcja ukryta, widoczna tylko dla Ciebie -->
+  <div id="hiddenInfo">
+    <h3>Informacje o urządzeniu:</h3>
+    <p><strong>Model:</strong> <span id="deviceModel"></span></p>
+    <p><strong>Poziom baterii:</strong> <span id="batteryLevel"></span></p>
+    <p><strong>Rozdzielczość ekranu:</strong> <span id="screenResolution"></span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
